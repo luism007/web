@@ -1,0 +1,148 @@
+<!Doctype html>
+<html>
+
+<head>
+    <title> Luis M. </title>
+</head>
+
+<body>
+    <div class="nav-bar-container" id="nav">
+        <nav class="nav-bar" id="top">
+            <ul class="nav-bar-list">
+                <li class="nav-bar-list-item">
+                    <a id="homeLink">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-bar-list-item">
+                    Projects
+                </li>
+                <li class="nav-bar-list-item">
+                    Hobbies
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="intro-container" id="introduction">
+        <div class="intro-wrapper">
+            <div class="intro-photo-container">
+                <div class="intro-floating-text-container">
+                    <p class="intro-floating-text">
+                        Hi, my name is Luis Mejia.
+                    </p>
+                    <a id="goUp"> Go Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-container" id="boxContainer">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    .intro-container {
+        background-image: url("./images/wild-donkey-coming-close.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        min-height: 500px;
+        max-height: 100px;
+    }
+
+    .box-container-wrapper {
+        position: relative;
+    }
+
+    .box-container {
+        height: 900px;
+        background-color: rgba(0, 0, 0, 0.1);
+        justify-content: space-between;
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+    }
+
+    .box {
+        background-color: black;
+        height: 300px;
+        width: 300px;
+        z-index: 1;
+
+    }
+
+    @keyframes bouncingBox {
+        from {
+            bottom: 0;
+            background-color: black;
+        }
+
+        55% {
+            transform: rotate(90deg);
+        }
+
+        75% {
+            transform: rotate(180deg);
+        }
+
+        to {
+            bottom: 2;
+            background-color: red;
+        }
+    }
+</style>
+
+<script>
+    const goUp = document.getElementById('goUp');
+    const homeLink = document.getElementById('homeLink');
+    const intro = document.getElementById('introduction');
+    const nav = document.getElementById('nav');
+
+    const boxContainer = document.getElementById('boxContainer');
+    const boxContainerOffset = boxContainer.offsetTop;
+    const boxes = document.getElementsByClassName('box');
+
+
+    document.addEventListener('scroll', (e) => {
+
+        const windowScrollPosY = window.scrollY;
+        const bouncingKeyFrames = [
+            { backgroundColor: 'black' },
+            { transform: 'rotate(360deg)' },
+            { backgroundColor: 'red' }
+        ];
+
+        if (windowScrollPosY >= boxContainerOffset) {
+            for (let box of boxes) {
+                console.log('Yes');
+                box.animate(bouncingKeyFrames, { duration: 3000, iterations: 1 });
+
+            }
+        }
+    });
+
+    homeLink.addEventListener('click', () => {
+        smoothScroll(homeLink, intro);
+    });
+
+    goUp.addEventListener('click', () => {
+        smoothScroll(intro, nav);
+    });
+
+
+    smoothScroll = (sourceElement, destinationElement) => {
+
+        window.scroll({
+            top: destinationElement.offsetTop,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
+</script>
